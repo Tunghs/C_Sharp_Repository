@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Media.Imaging;
 using OpenCvSharp;
 
 namespace Common.OpenCV
@@ -30,6 +31,16 @@ namespace Common.OpenCV
         public void GridCrop()
         {
 
+        }
+
+        public void GetMetadata(string imagePath)
+        {
+            FileInfo fileInfo = new FileInfo(imagePath);
+            using(FileStream fs = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                BitmapSource img = BitmapFrame.Create(fs);
+                BitmapMetadata md = (BitmapMetadata)img.Metadata;
+            }
         }
     }
 }
